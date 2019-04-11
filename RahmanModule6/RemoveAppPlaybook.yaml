@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+
+  tasks:
+
+    - name: Stop and remove webserver container
+      docker_container:
+        name: webserver
+        state: absent
+          
+    - name: Stop and remove mongo container
+      docker_container:
+        name: database
+        state: absent
+
+    - name: Remove webserver image
+      docker_image:
+        name: webserver
+        tag: 459
+        state: absent
+          
+    - name: Remove mongo image
+      docker_image:
+        name: database
+        tag: 459
+        state: absent
+
+    - name: Remove data container
+      docker_volume:
+        name: mongo_data
+        state: absent
+
+    - name: Remove config container
+      docker_volume:
+        name: mongo_config
+        state: absent
